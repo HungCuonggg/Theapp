@@ -1,0 +1,243 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Theapplication2
+{
+    internal class Program
+    {
+        const int CUSTOMERS = 100;
+        static int customerCount = 0;
+        static string[] customerNames = new string[CUSTOMERS];
+        static string[] Name = new string[CUSTOMERS];
+        static double[] WaterConsumption = new double[CUSTOMERS];
+        static double[] Bill = new double[CUSTOMERS];
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("==========================WELCOME==========================\n");
+            Console.Write("Enter your name: ");
+            string customerName = Console.ReadLine();
+            Console.WriteLine($"\nWelcome {customerName} to the program!!");
+            bool cus = true;
+            while (cus)
+            {
+                Console.WriteLine("\n===========================MENU============================");
+
+                Console.WriteLine("\nChoose an option:");
+                Console.WriteLine("\t0. Exit");
+                Console.WriteLine("\t1. Calculate water bill");
+                Console.WriteLine("\t2. Add customers");
+                Console.WriteLine("\t3. Find customers by name");
+                Console.WriteLine("\t4. Sort customers by name");
+                Console.Write("Enter your choice (0-4): ");
+                int choice = int.Parse(Console.ReadLine());
+                while (choice < 0 || choice > 4)
+                {
+                    Console.Write("Error please re enter (0-4): ");
+                    choice = int.Parse(Console.ReadLine());
+                }
+
+                switch (choice)
+                {
+                    case 0:
+                        Console.WriteLine("EXIT..");
+                        cus = false;
+                        break;
+                    case 1:
+                        Console.WriteLine("\n.........................................................");
+                        Console.WriteLine("\nCALCULATE WATER BILL");
+                        int type = typeofcustomer();
+                        Price(type);
+                        break;
+                    case 2:
+                        Console.WriteLine("\n.........................................................");
+                        Console.WriteLine("\nADD CUSTOMERS AND BILL");
+                        addcustomerandbill();
+                        break;
+                    case 3:
+                        Console.WriteLine("\n.........................................................");
+                        Console.WriteLine("\nFIND CUSTOMERS BY NAME");
+                        findcustomers();
+                        break;
+                    case 4:
+                        Console.WriteLine("\n.........................................................");
+                        Console.WriteLine("\nSORT CUSTOMERS BY NAME");
+                        SortCustomersByName();
+                        break;
+                    default:
+                        Console.WriteLine("ERROR..");
+                        break;
+                }
+                Console.WriteLine("=======================CONTINUE-MENU=========================");
+                Console.Write("\nDo you want to continute? (y/n): ");
+                string continuee = Console.ReadLine().ToLower();
+                if (continuee != "y")
+                {
+                    cus = false;
+                }
+            }
+
+        }
+        static int typeofcustomer()
+        {
+            Console.WriteLine("Type a customer: \n1. Household customer\n2. Administrative agency, public services\n3. Production units\n4. Business services");
+            int type;
+            while (true)
+            {
+                Console.Write("Enter your type (1-4): ");
+                type = int.Parse(Console.ReadLine());
+                if (type >= 1 && type <= 4)
+                    break;
+                Console.Write("Error, Cannot found customer type..");
+            }
+            return type;
+        }
+        static double Price(double type)
+        {
+            double price = default;
+            Console.Write("Enter last month’s water meter: ");
+            double a = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Enter this month’s water meter : ");
+            double b = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine($"\nWater comsumed: {b - a} " + "m3");
+            double c = b - a;
+                if (c < 0)
+            {
+                Console.WriteLine("Error");
+            }
+            switch (type)
+            {
+                case 1:
+                    Console.Write("Enter number of people: ");
+                    int d = Convert.ToInt32(Console.ReadLine());
+                    if (d > 0 && d <= 10)
+                    {
+                        Console.WriteLine($"Water bill: {(c * 5973)} VND");
+                        Console.WriteLine($"VAT + Environment fees:{(c * 5973 + c * 5973) * 10 / 100} VND");
+                        Console.WriteLine($"Total water bill: {(c * 5973) + (c * 5973 + c * 5973) * 10 / 100} VND");
+                    }
+                    else if (d >= 10 && d < 20)
+                    {
+                        Console.WriteLine($"Water bill: {(c * 7052)} VND");
+                        Console.WriteLine($"VAT + Environment fees:{(c * 7052 + c * 7052) * 10 / 100} VND");
+                        Console.WriteLine($"Total water bill: {(c * 7052) + (c * 7052 + c * 7052) * 10 / 100} VND");                           
+                    }
+                    else if (d >= 20 && d < 30)
+                    {
+                        Console.WriteLine($"Water bill: {(c * 8699)} VND");
+                        Console.WriteLine($"VAT + Environment fees:{(c * 8699 + c * 8699) * 10 / 100} VND");
+                        Console.WriteLine($"Total water bill: {(c * 8699) + (c * 8699 + c * 8699) * 10 / 100} VND");
+
+                    }
+                    else if (d >= 30)
+                    {
+                        Console.WriteLine($"Water bill: {(c * 15929)} VND");
+                        Console.WriteLine($"VAT + Environment fees:{(c * 15929 + c * 15929) * 10 / 100} VND");
+                        Console.WriteLine($"Total water bill: {(c * 15929) + (c * 15929 + c * 15929) * 10 / 100} VND");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error");
+                    }
+                    break;
+                case 2:
+                    Console.WriteLine($"Water bill: {(c * 9955)} VND");
+                    Console.WriteLine($"VAT + Environment fees:{(c * 9955 + c * 9955) * 10 / 100} VND");
+                    Console.WriteLine($"Total water bill: {(c * 9955) + (c * 9955 + c * 9955) * 10 / 100} VND");
+
+                    break;
+                case 3:
+                    Console.WriteLine($"Water bill: {(c * 11615)} VND");
+                    Console.WriteLine($"VAT + Environment fees:{(c * 11615 + c * 11615) * 10 / 100} VND");
+                    Console.WriteLine($"Total water bill: {(c * 11615) + (c * 11615 + c * 11615) * 10 / 100} VND");
+                    break;
+                case 4:
+                    Console.WriteLine($"Water bill: {(c * 22068)} VND");
+                    Console.WriteLine($"VAT + Environment fees:{(c * 22068 + c * 22068) * 10 / 100} VND");
+                    Console.WriteLine($"Total water bill: {(c * 22068) + (c * 22068 + c * 22068) * 10 / 100} VND");
+                    break;
+                default:
+                    return 0;
+            }
+            return price;
+        }
+        static void addcustomerandbill()
+        {
+            if (customerCount >= CUSTOMERS)
+            {
+                Console.WriteLine("Customer database is full. Error.");
+            }
+            bool ad = true;
+            while (ad)
+            {
+                Console.Write("Enter customer name: ");
+                string namecustom = Console.ReadLine().ToLower();
+
+                Console.Write("Enter water consumption (m3): ");
+                double waterConsumption = double.Parse(Console.ReadLine());
+                Console.Write("Enter bill : ");
+                double customerBill = double.Parse(Console.ReadLine());
+                Name[customerCount] = namecustom;
+                WaterConsumption[customerCount] = waterConsumption;
+                Bill[customerCount] = customerBill;
+                customerCount++;
+                Console.WriteLine("============================================");
+                Console.WriteLine("Customer bill added successfully!");
+                Console.WriteLine("List of customers: ");
+                for (int i = 0; i < customerCount; i++)
+                {
+                    Console.WriteLine($"Name:{Name[i]} - {WaterConsumption[i]}m3 - {Bill[i]}VND");
+                }
+                Console.WriteLine("============================================");
+                Console.Write("Do you want to continue adding users?? (y/n): ");
+                string choose = Console.ReadLine().ToLower();
+                if (choose == "n")
+                {
+                    ad = false;
+                }
+            }
+        }
+        static void findcustomers()
+        {
+            bool find = true;
+
+            while (find)
+            {
+                Console.WriteLine("Enter the user name you want to search: ");
+                string finding = Console.ReadLine().ToLower();
+                bool found = false;
+                for (int i = 0; i < customerCount; i++)
+                {
+                    if (finding == customerNames[i])
+                    {
+                        Console.WriteLine($"User {finding} found at index {i + 1}.");
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    Console.WriteLine($"User {finding} not found.");
+                }
+                Console.Write("Do you want to continue finding users? (y/n): ");
+                string choose = Console.ReadLine().ToLower();
+                if (choose != "y")
+                {
+                    find = false;
+                }
+            }
+        }
+        static void SortCustomersByName()
+        {
+            Array.Sort(customerNames, 0, customerCount);
+            for (int i = 0; i < customerCount; i++)
+            {
+                Console.WriteLine($"Name:{Name[i]} - {WaterConsumption[i]}m3 - {Bill[i]}VND");
+            }
+        }
+    }
+}
