@@ -1,0 +1,36 @@
+def inputNumber(promt):
+    while True:
+        try:
+            magicNumber = float(input(promt))
+            return magicNumber
+        except Exception:
+            print("Error database")
+subjects = ["C#","Python"]
+grades = []
+credits = []
+print("\nSubject grades and credits to calculate GPA and save to file:")
+for subject in subjects:
+    grade = inputNumber(f"Input grade for {subject}: ")
+    credit = inputNumber(f"Input credit for {subject}: ")
+    grades.append(grade)
+    credits.append(credit)
+def calculate_gpa():
+    product = 0
+    for i in range(0, len(grades)):
+        product += grades[i] * credits[i]
+    return product / (sum(credits))
+def print_gpa(grades, credits, subjects):
+    print("\nScorebroad:")
+    for i in range(len(subjects)):
+        print("\n\tSubject:",subjects[i])
+        print("\t    Grade:",grades[i])
+        print("\t    Credit:",credits[i])
+    print("\nGPA:{:.2f}\n".format(calculate_gpa()))
+print_gpa(grades, credits, subjects)
+with open("filerelease.txt","w") as f:
+    f.writelines("Scorebroad: \n")
+    for i in range(len(subjects)):
+        f.writelines(f"\n\tSubject:{subjects[i]}\n")
+        f.writelines(f"\t\tGrades:{grades[i]}\n")
+        f.writelines(f"\t\tCredit:{credits[i]}\n")
+    f.writelines("\nGPA:{:.2f}".format(calculate_gpa()))
